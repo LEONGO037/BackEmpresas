@@ -1,38 +1,20 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+import express from 'express';
+import cors from 'cors';
+import empresaRoutes from './routers/empresas.js';
+import usuarioRoutes from './routers/usuarioRouter.js';
+import { swaggerUi, swaggerSpec } from './swagger.js';
 
-// Middleware para JSON
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 app.use(express.json());
 
-// Configuración de Swagger
-const swaggerUi = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
-
-// Definir opciones de Swagger
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'APIS',
-      version: '1.0.0',
-      description: 'Documentación de las APIS',
-    },
-  },
-  apis: ['./controllers/*.js', './routes/*.js'], // Rutas y controladores a documentar
-};
-
-// Generar especificaciones Swagger
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-
-// Usar Swagger UI para visualizar la documentación
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// Importar y usar rutas
-const usuarioRoutes = require('./routers/usuarioRouter');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/', empresaRoutes);
 app.use('/usuarios', usuarioRoutes); // Las rutas estarán bajo /usuarios
 
-// Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`📚 Documentación Swagger en http://localhost:${PORT}/api-docs`);
 });
