@@ -1,4 +1,5 @@
-const usuarioModel = require('../models/usuarioModel');
+// controllers/usuarioController.js
+import usuarioModel from '../models/usuarioModel.js';
 
 /**
  * @swagger
@@ -80,6 +81,6 @@ const loginUsuario = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   loginUsuario,
 };

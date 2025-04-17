@@ -1,4 +1,5 @@
-const pool = require('../db');
+// models/usuarioModel.js
+import pool from '../db.js'; // Asegúrate de que tu archivo db.js también use `export default`
 
 /**
  * @swagger
@@ -46,6 +47,6 @@ const buscarUsuario = async (usuario, contrasenia) => {
   }
 };
 
-module.exports = {
+export default {
   buscarUsuario,
 };
