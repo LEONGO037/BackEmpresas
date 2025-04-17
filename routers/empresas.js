@@ -1,8 +1,8 @@
-
 import express from 'express';
 import { getEmpresaDetalle } from '../controllers/empresaController.js';
 
 const router = express.Router();
+
 /**
  * @swagger
  * /empresa/{id}:
@@ -128,6 +128,22 @@ const router = express.Router();
  *                         type: string
  *                       nombre_edificio:
  *                         type: string
+ *                 items:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       nombre_item:
+ *                         type: string
+ *                       descripcion:
+ *                         type: string
+ *                 servicios:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       descripcion:
+ *                         type: string
  *       404:
  *         description: Empresa no encontrada
  *       500:
@@ -137,4 +153,3 @@ const router = express.Router();
 router.get('/empresa/:id', getEmpresaDetalle);
 
 export default router;
-

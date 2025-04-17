@@ -1,4 +1,4 @@
-
+// ✅ MODELO - models/empresaModel.js
 import db from '../db.js';
 
 export const obtenerEmpresaPorId = async (id_empresa) => {
@@ -56,7 +56,28 @@ export const obtenerEmpresaPorId = async (id_empresa) => {
         'ciudad', c.nombre_ciudad,
         'municipio', m.nombre_municipio,
         'nombre_edificio', s.nombre_edificio
-      )) AS sedes
+      )) AS sedes,
+
+      -- Items
+      (
+        SELECT json_agg(jsonb_build_object(
+          'nombre_item', i.nombre_item,
+          'descripcion', i.descripcion
+        ))
+        FROM EMPRESAS_ITEMS ei
+        JOIN ITEMS i ON ei.id_item = i.id_item
+        WHERE ei.id_empresa = e.id_empresa AND i.tipo_item = true
+      ) AS items,
+
+      -- Servicios (solo descripción)
+      (
+        SELECT json_agg(jsonb_build_object(
+          'descripcion', i.descripcion
+        ))
+        FROM EMPRESAS_ITEMS ei
+        JOIN ITEMS i ON ei.id_item = i.id_item
+        WHERE ei.id_empresa = e.id_empresa AND i.tipo_item = false
+      ) AS servicios
 
     FROM EMPRESAS e
     LEFT JOIN HISTORIAL_PROPIEDAD hp ON e.id_empresa = hp.id_empresa
