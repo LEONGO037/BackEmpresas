@@ -5,9 +5,9 @@ import swaggerUi from 'swagger-ui-express';
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
-    title: 'API de Empresas',
+    title: 'APIS',
     version: '1.0.0',
-    description: 'Documentación de la API para consultar detalles de empresas',
+    description: 'Documentación de las APIS',
   },
   servers: [
     {
@@ -20,6 +20,8 @@ const options = {
   swaggerDefinition,
   apis: ['./routers/*.js'], // Acá irán tus anotaciones JSDoc
 };
+
+
 
 const swaggerSpec = swaggerJSDoc(options);
 

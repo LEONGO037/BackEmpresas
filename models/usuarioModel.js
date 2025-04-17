@@ -1,35 +1,5 @@
-// models/usuarioModel.js
-import pool from '../db.js'; // Asegúrate de que tu archivo db.js también use `export default`
+import pool from '../db.js'; 
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Usuario:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           description: ID único del usuario.
- *         usuario:
- *           type: string
- *           description: El nombre de usuario.
- *         contrasenia:
- *           type: string
- *           description: La contraseña del usuario.
- */
-
-/**
- * @swagger
- * definitions:
- *   buscarUsuario:
- *     type: object
- *     properties:
- *       usuario:
- *         type: string
- *       contrasenia:
- *         type: string
- */
 const buscarUsuario = async (usuario, contrasenia) => {
   const query = `
     SELECT * FROM USUARIOS
