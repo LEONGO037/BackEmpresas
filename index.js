@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import empresaRoutes from './routers/empresas.js';
+import filtradoRoutes from './routers/filtradoRouter.js';
 import usuarioRoutes from './routers/usuarioRouter.js';
 import { swaggerUi, swaggerSpec } from './swagger.js';
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/', empresaRoutes);
 app.use('/usuarios', usuarioRoutes); // Las rutas estarán bajo /usuarios
+app.use('/filtrado', filtradoRoutes); // Las rutas estarán bajo /filtrado
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
