@@ -1,7 +1,38 @@
 import express from 'express';
-import { getEmpresaDetalle } from '../controllers/empresaController.js';
+import {
+    getEmpresaDetalle,
+    getTodasEmpresasResumen 
+  } from '../controllers/empresaController.js';
 
 const router = express.Router();
+// routes/empresas.js (agregá esto a tu archivo existente)
+/**
+ * @swagger
+ * /empresas:
+ *   get:
+ *     summary: Obtener lista de todas las empresas (id, nombre y URL)
+ *     tags:
+ *       - Empresas
+ *     responses:
+ *       200:
+ *         description: Lista de empresas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_empresa:
+ *                     type: integer
+ *                   denominacion_social:
+ *                     type: string
+ *                   url:
+ *                     type: string
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get('/empresas', getTodasEmpresasResumen);
 
 /**
  * @swagger

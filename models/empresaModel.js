@@ -1,5 +1,14 @@
 // ✅ MODELO - models/empresaModel.js
 import db from '../db.js';
+export const obtenerTodasEmpresasResumen = async () => {
+  const query = `
+    SELECT id_empresa, denominacion_social, url
+    FROM EMPRESAS;
+  `;
+
+  const { rows } = await db.query(query);
+  return rows;
+};
 
 export const obtenerEmpresaPorId = async (id_empresa) => {
   const query = `
