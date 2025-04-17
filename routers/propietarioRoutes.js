@@ -8,7 +8,7 @@ import {
 const router = express.Router();
 
 router.post('/', createPropietario);
-router.get('/empresa/:empresaId/propietarios', getPropietariosByEmpresa);
+router.get('/empresa/:empresaId', getPropietariosByEmpresa);
 router.get('/', getAllPropietarios);
 
 export default router;

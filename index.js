@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use('/empresas', empresaRoutes); // Cambiado de '/' a '/empresas'
+app.use('/', empresaRoutes); // Cambiado de '/' a '/empresas'
 app.use('/usuarios', usuarioRoutes);
 app.use('/propietarios', propietarioRoutes); // Asegúrate que esta línea está presente
 

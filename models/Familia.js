@@ -1,16 +1,34 @@
 import pool from '../db.js';
 
-export default class Familia {
-  static async create(nombreFamilia) {
-    const checkQuery = 'SELECT id_familia FROM "FAMILIA" WHERE nombre_familia = $1';
-    const checkRes = await pool.query(checkQuery, [nombreFamilia]);
-    
-    if (checkRes.rows.length > 0) {
-      return checkRes.rows[0].id_familia;
-    }
+class Familia {
+  static async create(nombre_familia, client = pool) {
+    if (!nombre_familia) throw new Error('Nombre de familia requerido');
 
-    const insertQuery = 'INSERT INTO "FAMILIA" (nombre_familia) VALUES ($1) RETURNING id_familia';
-    const insertRes = await pool.query(insertQuery, [nombreFamilia]);
-    return insertRes.rows[0].id_familia;
+    try {
+      // Verificamos si ya existe la familia por nombre
+      const { rows } = await client.query(
+        'SELECT id_familia FROM familia WHERE nombre_familia = $1',
+        [nombre_familia]
+      );
+
+      // Si ya existe la familia, retornamos el id_familia
+      if (rows.length > 0) {
+        return rows[0].id_familia;
+      }
+
+      // Si no existe, insertamos la nueva familia (no incluimos familia_pk, ya que es SERIAL)
+      const insertRes = await client.query(
+        'INSERT INTO familia (nombre_familia) VALUES ($1) RETURNING id_familia',
+        [nombre_familia]
+      );
+
+      // Retornamos el id_familia generado automáticamente
+      return insertRes.rows[0].id_familia;
+    } catch (error) {
+      // Capturamos cualquier error
+      throw new Error(`Error creando familia: ${error.message}`);
+    }
   }
 }
+
+export default Familia;
