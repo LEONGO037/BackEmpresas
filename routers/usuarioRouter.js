@@ -24,7 +24,12 @@ const router = express.Router();
  *     tags:  # <--- Agrega esta línea
  *       - Login
  *     summary: Inicia sesión con usuario y contraseña.
- *     description: Verifica las credenciales del usuario y devuelve la información correspondiente.
+ *     description: |
+ *       Verifica las credenciales del usuario y devuelve la información correspondiente. 
+ *       El usuario y la contraseña deben ser válidos para un inicio de sesión exitoso.
+ *       Ejemplo de credenciales válidas:
+ *         - Usuario: admin1
+ *         - Contraseña: admin123
  *     requestBody:
  *       required: true
  *       content:
