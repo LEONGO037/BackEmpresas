@@ -5,6 +5,7 @@ import usuarioRoutes from './routers/usuarioRouter.js';
 import busquedaRouter from './routers/busquedas.routes.js';
 import hitosRouter from './routers/hitosRouter.js';
 import tamaniosRouter from './routers/tamanioRouter.js';
+import ingresarEmpresaRouter from './routers/IngresarEmpresaRouter.js';
 import { swaggerUi, swaggerSpec } from './swagger.js';
 
 const app = express();
@@ -19,6 +20,7 @@ app.use('/usuarios', usuarioRoutes); // Las rutas estarán bajo /usuarios
 app.use(busquedaRouter);
 app.use('/', hitosRouter);
 app.use('/', tamaniosRouter);
+app.use('/', ingresarEmpresaRouter);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

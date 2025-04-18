@@ -1,5 +1,5 @@
 import express from 'express';
-import empresaController from '../controllers/empresaController.js';
+import empresaController from '../controllers/ingresarEmpresaController.js';
 
 const router = express.Router();
 
@@ -31,7 +31,8 @@ const router = express.Router();
  *         fecha_cierre:
  *           type: string
  *           format: date
- *           example: "2023-12-31"
+ *           nullable: true
+ *           example: "2020-01-01 (mandar cadena vacia en caso de que sea null)"
  *         nit:
  *           type: integer
  *           example: 123456789
@@ -49,7 +50,7 @@ const router = express.Router();
  *   - name: Empresas
  *     description: Operaciones con empresas
  * 
- * /empresas:
+ * /ingresarEmpresa:
  *   post:
  *     tags:
  *       - Empresas
@@ -79,6 +80,6 @@ const router = express.Router();
  *         description: Error interno del servidor
  */
 
-router.post('/', empresaController.crearEmpresa);
+router.post('/ingresarEmpresa', empresaController.crearEmpresa);
 
 export default router;
