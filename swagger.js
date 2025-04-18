@@ -20,20 +20,9 @@ const swaggerDefinition = {
     {
       url: 'http://localhost:3000',
       description: 'Servidor de desarrollo local'
-    },
-    {
-      url: 'https://api.empresa.com/v1',
-      description: 'Servidor de producción'
     }
   ],
   components: {
-    securitySchemes: {
-      BearerAuth: {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT'
-      }
-    },
     responses: {
       NotFound: {
         description: 'Recurso no encontrado',
