@@ -46,11 +46,14 @@ const asignarTamanioEmpresa = async (req, res) => {
     });
   }
 
-  if (!fechaRegex.test(fecha_fin_et) || isNaN(new Date(fecha_fin_et).getTime())) {
-    return res.status(400).json({
-      mensaje: 'Formato de fecha inválido. Use YYYY-MM-DD',
-      registrado: 0
-    });
+  if(fecha_fin_et) {
+
+    if (!fechaRegex.test(fecha_fin_et) || isNaN(new Date(fecha_fin_et).getTime())) {
+      return res.status(400).json({
+        mensaje: 'Formato de fecha inválido. Use YYYY-MM-DD',
+        registrado: 0
+      });
+    }
   }
 
   try {
