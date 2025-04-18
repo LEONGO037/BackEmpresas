@@ -1,14 +1,14 @@
 import pool from '../db.js';
 
 export default class Propietario {
-  static async create({ id_familia, nombre, apellido_paterno, apellido_materno, nacionalidad, es_familia }) {
+  static async create({ id_familia, nombre, apellido_paterno, apellido_materno, nacionalidad, es_familia }, client = pool) {
     const query = `
       INSERT INTO "propietarios" 
       (id_familia, nombre, apellido_paterno, apellido_materno, nacionalidad, es_familia)
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id_propietario
     `;
-    const res = await pool.query(query, [
+    const res = await client.query(query, [
       id_familia,
       nombre,
       apellido_paterno,

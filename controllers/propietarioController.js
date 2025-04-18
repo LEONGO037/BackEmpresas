@@ -12,6 +12,7 @@ export const createPropietario = async (req, res) => {
     
     // Crear familia con transacción
     const familiaId = await Familia.create(familiaNombre, client);
+    console.log('familiaId:', familiaId);
     
     // Crear propietario
     const propietarioId = await Propietario.create(
