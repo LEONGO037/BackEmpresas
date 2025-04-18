@@ -47,6 +47,6 @@ const router = express.Router();
  *         description: Error interno del servidor
  */
 
-router.get('/', tamaniosController.obtenerTamanios);
+router.get('/tamanios', tamaniosController.obtenerTamanios);
 
 export default router;
