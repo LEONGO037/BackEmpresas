@@ -3,7 +3,7 @@ import cors from 'cors';
 import empresaRoutes from './routers/empresas.js';
 import usuarioRoutes from './routers/usuarioRouter.js';
 import busquedaRouter from './routers/busquedas.routes.js';
-import hitosRouter from './routers/hitosRouter.js';
+import PremiosRouter from './routers/premiosRouter.js';
 import tamaniosRouter from './routers/tamanioRouter.js';
 import ingresarEmpresaRouter from './routers/IngresarEmpresaRouter.js';
 import { swaggerUi, swaggerSpec } from './swagger.js';
@@ -18,7 +18,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/', empresaRoutes);
 app.use('/usuarios', usuarioRoutes); // Las rutas estarán bajo /usuarios
 app.use(busquedaRouter);
-app.use('/', hitosRouter);
+app.use('/', PremiosRouter);
 app.use('/', tamaniosRouter);
 app.use('/', ingresarEmpresaRouter);
 

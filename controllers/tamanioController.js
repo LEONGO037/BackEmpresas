@@ -38,12 +38,19 @@ const asignarTamanioEmpresa = async (req, res) => {
   
 
   // Validar formato de fecha si se envía fecha_cierre
-  if (fecha_fin_et && fecha_fin_et !== '') {
-    if (isNaN(Date.parse(fecha_fin_et))) {
-      return res.status(400).json({
-        mensaje: 'Formato de fecha inválido. Use YYYY-MM-DD'
-      });
-    }
+  const fechaRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!fechaRegex.test(fecha_inicio_et) || isNaN(new Date(fecha_inicio_et).getTime())) {
+    return res.status(400).json({
+      mensaje: 'Formato de fecha inválido. Use YYYY-MM-DD',
+      registrado: 0
+    });
+  }
+
+  if (!fechaRegex.test(fecha_fin_et) || isNaN(new Date(fecha_fin_et).getTime())) {
+    return res.status(400).json({
+      mensaje: 'Formato de fecha inválido. Use YYYY-MM-DD',
+      registrado: 0
+    });
   }
 
   try {
