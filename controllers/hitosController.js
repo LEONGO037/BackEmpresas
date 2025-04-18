@@ -24,6 +24,32 @@ const obtenerHitosAgrupados = async (req, res) => {
   }
 };
 
+const crearHito = async (req, res) => {
+  const { id_empresa, descripcion, fecha_h, url } = req.body;
+
+  if (!id_empresa || !descripcion || !fecha_h || !url) {
+    return res.status(400).json({
+      mensaje: 'Faltan campos obligatorios',
+      creado: 0
+    });
+  }
+
+  try {
+    const nuevoHito = await hitosModel.crearHito({ id_empresa, descripcion, fecha_h, url });
+    res.status(201).json({
+      mensaje: 'Hito creado correctamente',
+      hito: nuevoHito
+    });
+  } catch (error) {
+    console.error('Error en crearHito:', error);
+    res.status(500).json({
+      mensaje: 'Error del servidor',
+      creado: 0
+    });
+  }
+};
+
 export default {
   obtenerHitosAgrupados,
+  crearHito,
 };

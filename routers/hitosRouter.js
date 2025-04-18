@@ -45,4 +45,38 @@ const router = express.Router();
 
 router.get('/hitos', hitosController.obtenerHitosAgrupados);
 
+/**
+ * @swagger
+ * /hitos:
+ *   post:
+ *     tags:
+ *       - Hitos
+ *     summary: Crea un nuevo hito
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id_empresa:
+ *                 type: integer
+ *               descripcion:
+ *                 type: string
+ *               fecha_h:
+ *                 type: string
+ *                 format: date
+ *               url:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Hito creado correctamente
+ *       400:
+ *         description: Faltan campos obligatorios
+ *       500:
+ *         description: Error interno del servidor
+ */
+
+router.post('/hitos', hitosController.crearHito);
+
 export default router;
