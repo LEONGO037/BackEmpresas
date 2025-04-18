@@ -1,5 +1,6 @@
-// ✅ MODELO - models/empresaModel.js
+// ✅ MODELO - models/empresaModel.js 
 import db from '../db.js';
+
 export const obtenerTodasEmpresasResumen = async () => {
   const query = `
     SELECT id_empresa, denominacion_social, url
@@ -15,6 +16,7 @@ export const obtenerEmpresaPorId = async (id_empresa) => {
     SELECT 
       e.id_empresa, e.denominacion_social, e.nombre_comercial, e.nit, e.url,
       e.fecha_fundacion, e.fecha_cierre,
+      e.eslogan, e.descripcion,
 
       -- Propietarios
       json_agg(DISTINCT jsonb_build_object(
