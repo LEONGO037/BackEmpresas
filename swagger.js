@@ -34,86 +34,6 @@ const swaggerDefinition = {
         bearerFormat: 'JWT'
       }
     },
-    schemas: {
-      Empresa: {
-        type: 'object',
-        properties: {
-          id_empresa: {
-            type: 'integer',
-            example: 1
-          },
-          nombre_comercial: {
-            type: 'string',
-            example: 'Tech Solutions'
-          },
-          fecha_fundacion: {
-            type: 'string',
-            format: 'date',
-            example: '2010-05-15'
-          },
-          nit: {
-            type: 'string',
-            example: '123456789'
-          },
-          url: {
-            type: 'string',
-            example: 'http://techsolutions.com'
-          },
-          propietarios: {
-            type: 'array',
-            items: {
-              type: 'string'
-            },
-            example: ['Juan Pérez López', 'María García Fernández']
-          },
-          items: {
-            type: 'array',
-            items: {
-              type: 'string'
-            },
-            example: ['Software empresarial', 'Soporte técnico']
-          }
-        }
-      },
-      ErrorResponse: {
-        type: 'object',
-        properties: {
-          error: {
-            type: 'string',
-            example: 'Mensaje de error descriptivo'
-          },
-          detalle: {
-            type: 'string',
-            example: 'Detalle técnico del error (solo en desarrollo)'
-          }
-        }
-      },
-      BusquedaParams: {
-        type: 'object',
-        properties: {
-          nombre_empresa: {
-            type: 'string',
-            description: 'Nombre o parte del nombre comercial de la empresa',
-            example: 'tech'
-          },
-          nombre_fundador: {
-            type: 'string',
-            description: 'Nombre del fundador (solo busca por nombre)',
-            example: 'juan'
-          },
-          item: {
-            type: 'string',
-            description: 'Nombre o parte del nombre de un item asociado',
-            example: 'software'
-          },
-          actividad: {
-            type: 'string',
-            description: 'Nombre o parte del nombre de una actividad',
-            example: 'tecnologia'
-          }
-        }
-      }
-    },
     responses: {
       NotFound: {
         description: 'Recurso no encontrado',
@@ -172,10 +92,6 @@ const swaggerDefinition = {
     {
       name: 'Empresas',
       description: 'Gestión de empresas'
-    },
-    {
-      name: 'Usuarios',
-      description: 'Gestión de usuarios'
     }
   ]
 };
