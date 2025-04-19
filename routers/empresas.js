@@ -1,11 +1,11 @@
 import express from 'express';
 import {
-    getEmpresaDetalle,
-    getTodasEmpresasResumen 
-  } from '../controllers/empresaController.js';
+  getEmpresaDetalle,
+  getTodasEmpresasResumen
+} from '../controllers/empresaController.js';
 
 const router = express.Router();
-// routes/empresas.js (agregá esto a tu archivo existente)
+
 /**
  * @swagger
  * /empresas:
@@ -65,6 +65,10 @@ router.get('/empresas', getTodasEmpresasResumen);
  *                 nit:
  *                   type: integer
  *                 url:
+ *                   type: string
+ *                 eslogan:
+ *                   type: string
+ *                 descripcion:
  *                   type: string
  *                 fecha_fundacion:
  *                   type: string
@@ -180,7 +184,6 @@ router.get('/empresas', getTodasEmpresasResumen);
  *       500:
  *         description: Error interno del servidor
  */
-
 router.get('/empresa/:id', getEmpresaDetalle);
 
 export default router;
