@@ -69,6 +69,8 @@ router.get('/empresa/:id', sedesController.obtenerSedesById);
  *             schema:
  *               type: object
  *               properties:
+ *                 id_municipio:
+ *                   type: number
  *                 nombre_municipio:
  *                   type: string
  *                 nombre_ciudad:
@@ -82,5 +84,68 @@ router.get('/empresa/:id', sedesController.obtenerSedesById);
  */
 
 router.get('/munciudeptos', sedesController.obtenerMunCiuDeptos);
+
+/**
+ * @swagger
+ * components:
+ *   definitions:
+ *     newSede:
+ *       type: object
+ *       properties:
+ *         id_empresa:
+ *           type: integer
+ *         id_municipio:
+ *           type: integer
+ *         zona:
+ *           type: string
+ *         calle:
+ *           type: string
+ *         referencias:
+ *           type: string
+ *         nombre_edificio:
+ *           type: string
+ *         longitud:
+ *           type: number
+ *           format: double
+ *         latitud:
+ *           type: number
+ *           format: double
+ *         fecha_inicio:
+ *           type: string
+ *           format: date
+ *         fecha_fin:
+ *           type: string
+ *           format: date
+ *         tipo:
+ *           type: boolean
+ * 
+ * tags:
+ *   - name: Sedes
+ *     description:
+ * 
+ * /sedes:
+ *   post:
+ *     tags: 
+ *       - Sedes
+ *     summary: Registra una sede no registrada para una empresa.
+ *     description: |
+ *       Verifica que los campos no estén vacíos.
+ *       Verifica que la sede no haya sido registrada previamente.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/definitions/newSede'
+ *     responses:
+ *       200:
+ *         description: Sede registrada exitosamente.
+ *       400:
+ *         description: Datos incompletos o formato de fecha inválido.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+
+router.post('/', sedesController.insertarSede);
 
 export default router;

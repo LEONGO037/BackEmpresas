@@ -1,13 +1,13 @@
 import pool from '../db.js'; 
 
-const obtenerTodosItems = async () => {
+const obtenerTodosItemsDisponibles = async (id_empresa) => {
     const query = `
       SELECT i.id_item, nombre_item, ci.nombre as categoria
-      FROM items i, items_categorias ic, categorias_items ci
-      WHERE ic.id_item = i.id_item AND ci.id_categoria = ic.id_categoria;
+      FROM items i, items_categorias ic, categorias_items ci, empresas_items ei 
+      WHERE ic.id_item = i.id_item AND ci.id_categoria = ic.id_categoria AND ei.id_empresa <> $1 and i.id_item = ei.id_item;
     `;
   
-    const { rows } = await pool.query(query);
+    const { rows } = await pool.query(query, [id_empresa]);
     return rows;
   };
 
@@ -32,8 +32,22 @@ const insertarItem = async (id_empresa, id_item, fecha_inicio, fecha_fin) => {
     return 'Ítem registrado exitosamente';
 };
 
+const verifyItem = async (id_empresa, id_item) => {
+  const query = `
+    SELECT EXISTS(
+      SELECT 1 FROM empresas_items
+      WHERE id_empresa = $1 AND id_item = $2
+    ) AS row_exists;
+  `;
+
+  const values = [id_empresa, id_item];
+  const row_exists = await pool.query(query, values);
+  return row_exists.rows[0].row_exists;
+};
+
 export default {
   obtenerTodosItemsById,
-  obtenerTodosItems,
-  insertarItem
+  obtenerTodosItemsDisponibles,
+  insertarItem,
+  verifyItem
 };

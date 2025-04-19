@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /items/{id}:
+ * /items/empresa/{id}:
  *   get:
  *     summary: Obtener los ítems de una empresa
  *     tags:
@@ -44,18 +44,25 @@ const router = express.Router();
  *         description: Error interno del servidor
  */
 
-router.get('/:id', itemsController.obtenerItemsById);
+router.get('/empresa/:id', itemsController.obtenerItemsById);
 
 /**
  * @swagger
- * /items:
+ * /items/{id}:
  *   get:
- *     summary: Obtener todos los ítems registrados
+ *     summary: Obtener todos los ítems que no hayan sido registrados en la empresa
  *     tags:
  *       - Ítems
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la empresa
  *     responses:
  *       200:
- *         description: Detalle de todos los ítems registrados
+ *         description: Detalle de todos los ítems que no hayan sido registrados en la empresa
  *         content:
  *           application/json:
  *             schema:
@@ -73,7 +80,7 @@ router.get('/:id', itemsController.obtenerItemsById);
  *         description: Error interno del servidor
  */
 
-router.get('/', itemsController.obtenerItems);
+router.get('/:id', itemsController.obtenerItems);
 
 /**
  * @swagger
@@ -114,7 +121,7 @@ router.get('/', itemsController.obtenerItems);
  *       200:
  *         description: Ítem registrado exitosamente.
  *       400:
- *         description: Datos incompletos.
+ *         description: Datos incompletos o formato de fecha inválido.
  *       500:
  *         description: Error interno del servidor.
  */
