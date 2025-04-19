@@ -1,5 +1,17 @@
+import {
+  obtenerEmpresaPorId,
+  obtenerTodasEmpresasResumen
+} from '../models/empresaModel.js';
 
-import { obtenerEmpresaPorId } from '../models/empresaModel.js';
+export const getTodasEmpresasResumen = async (req, res) => {
+  try {
+    const empresas = await obtenerTodasEmpresasResumen();
+    res.json(empresas);
+  } catch (error) {
+    console.error('Error al obtener empresas:', error);
+    res.status(500).json({ message: 'Error interno del servidor' });
+  }
+};
 
 export const getEmpresaDetalle = async (req, res) => {
   try {

@@ -1,11 +1,22 @@
-
+// ✅ MODELO - models/empresaModel.js 
 import db from '../db.js';
+
+export const obtenerTodasEmpresasResumen = async () => {
+  const query = `
+    SELECT id_empresa, denominacion_social, url
+    FROM EMPRESAS;
+  `;
+
+  const { rows } = await db.query(query);
+  return rows;
+};
 
 export const obtenerEmpresaPorId = async (id_empresa) => {
   const query = `
     SELECT 
       e.id_empresa, e.denominacion_social, e.nombre_comercial, e.nit, e.url,
       e.fecha_fundacion, e.fecha_cierre,
+      e.eslogan, e.descripcion,
 
       -- Propietarios
       json_agg(DISTINCT jsonb_build_object(
@@ -56,7 +67,28 @@ export const obtenerEmpresaPorId = async (id_empresa) => {
         'ciudad', c.nombre_ciudad,
         'municipio', m.nombre_municipio,
         'nombre_edificio', s.nombre_edificio
-      )) AS sedes
+      )) AS sedes,
+
+      -- Items
+      (
+        SELECT json_agg(jsonb_build_object(
+          'nombre_item', i.nombre_item,
+          'descripcion', i.descripcion
+        ))
+        FROM EMPRESAS_ITEMS ei
+        JOIN ITEMS i ON ei.id_item = i.id_item
+        WHERE ei.id_empresa = e.id_empresa AND i.tipo_item = true
+      ) AS items,
+
+      -- Servicios (solo descripción)
+      (
+        SELECT json_agg(jsonb_build_object(
+          'descripcion', i.descripcion
+        ))
+        FROM EMPRESAS_ITEMS ei
+        JOIN ITEMS i ON ei.id_item = i.id_item
+        WHERE ei.id_empresa = e.id_empresa AND i.tipo_item = false
+      ) AS servicios
 
     FROM EMPRESAS e
     LEFT JOIN HISTORIAL_PROPIEDAD hp ON e.id_empresa = hp.id_empresa

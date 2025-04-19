@@ -1,8 +1,39 @@
-
 import express from 'express';
-import { getEmpresaDetalle } from '../controllers/empresaController.js';
+import {
+  getEmpresaDetalle,
+  getTodasEmpresasResumen
+} from '../controllers/empresaController.js';
 
 const router = express.Router();
+
+/**
+ * @swagger
+ * /empresas:
+ *   get:
+ *     summary: Obtener lista de todas las empresas (id, nombre y URL)
+ *     tags:
+ *       - Empresas
+ *     responses:
+ *       200:
+ *         description: Lista de empresas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_empresa:
+ *                     type: integer
+ *                   denominacion_social:
+ *                     type: string
+ *                   url:
+ *                     type: string
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get('/empresas', getTodasEmpresasResumen);
+
 /**
  * @swagger
  * /empresa/{id}:
@@ -34,6 +65,10 @@ const router = express.Router();
  *                 nit:
  *                   type: integer
  *                 url:
+ *                   type: string
+ *                 eslogan:
+ *                   type: string
+ *                 descripcion:
  *                   type: string
  *                 fecha_fundacion:
  *                   type: string
@@ -128,13 +163,27 @@ const router = express.Router();
  *                         type: string
  *                       nombre_edificio:
  *                         type: string
+ *                 items:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       nombre_item:
+ *                         type: string
+ *                       descripcion:
+ *                         type: string
+ *                 servicios:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       descripcion:
+ *                         type: string
  *       404:
  *         description: Empresa no encontrada
  *       500:
  *         description: Error interno del servidor
  */
-
 router.get('/empresa/:id', getEmpresaDetalle);
 
 export default router;
-
