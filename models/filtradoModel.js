@@ -13,7 +13,7 @@ const obtenerDepartamentos = async (nombre_depto) => {
                   and sedes.id_municipio = municipios.id_municipio
                   and municipios.id_ciudad = ciudades.id_ciudad
                   and ciudades.id_departamento = departamentos.id_departamento 
-                  and departamentos.nombre_depto = $1;`,
+                  and departamentos.nombre_depto ILIKE $1;`,
             values: [nombre_depto]
         };
         const { rows } = await db.query(query);
