@@ -121,7 +121,6 @@ const getEmpresasFiltradas = async (req, res) => {
                     item,
                     actividad
                 },
-                consulta_generada: query,
                 sugerencia: 'Intente con términos más generales o verifique los datos'
             });
         }
