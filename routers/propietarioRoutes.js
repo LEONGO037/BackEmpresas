@@ -1,9 +1,5 @@
 import express from 'express';
-import {
-  createPropietario,
-  getPropietariosByEmpresa,
-  getAllPropietarios
-} from '../controllers/propietarioController.js';
+import {createPropietario, getPropietariosByEmpresa, getAllPropietarios} from '../controllers/propietarioController.js';
 
 const router = express.Router();
 

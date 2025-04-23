@@ -1,8 +1,5 @@
 import express from 'express';
-import {
-  getEmpresaDetalle,
-  getTodasEmpresasResumen
-} from '../controllers/empresaController.js';
+import {getEmpresaDetalle,getTodasEmpresasResumen} from '../controllers/empresaController.js';
 
 const router = express.Router();
 
