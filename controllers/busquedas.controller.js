@@ -31,14 +31,14 @@ const getEmpresasFiltradas = async (req, res) => {
             `);
         }
 
-        // 2. Subconsulta para fundador (MODIFICADO: ahora solo busca por nombre)
+        // 2. Subconsulta para fundador 
         if (nombre_fundador) {
             params.push(`%${nombre_fundador}%`);
             subqueries.push(`
                 SELECT hp.id_empresa 
                 FROM historial_propiedad hp
                 JOIN propietarios p ON hp.id_propietario = p.id_propietario
-                WHERE p.nombre ILIKE $${params.length}  -- Solo busca por nombre, sin apellidos
+                WHERE p.nombre ILIKE $${params.length}  
             `);
         }
 
