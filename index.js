@@ -35,7 +35,7 @@ app.use('/', PremiosRouter);
 app.use('/', tamaniosRouter);
 app.use('/', ingresarEmpresaRouter);
 app.use('/propietarios', propietarioRoutes);
-app.use('/tipos', tipoSocietarioRoutes);
+app.use('/', tipoSocietarioRoutes);
 app.use('/logs', logsRouter); 
 app.use('/actividades', actividadesRouter);
 app.use('/internacional', internacionalRouter)
