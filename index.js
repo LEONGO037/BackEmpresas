@@ -11,7 +11,10 @@ import tamaniosRouter from './routers/tamanioRouter.js';
 import ingresarEmpresaRouter from './routers/IngresarEmpresaRouter.js';
 import propietarioRoutes from './routers/propietarioRoutes.js';
 import tipoSocietarioRoutes from './routers/tipoSocietarioRoutes.js';
+import internacionalRouter from './routers/internacionalRouter.js';
 import { swaggerUi, swaggerSpec } from './swagger.js';
+import hitosRouter from './routers/hitosRouter.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,6 +34,8 @@ app.use('/', tamaniosRouter);
 app.use('/', ingresarEmpresaRouter);
 app.use('/propietarios', propietarioRoutes);
 app.use('/tipos', tipoSocietarioRoutes);
+app.use('/internacional', internacionalRouter)
+app.use('/hitos', hitosRouter);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
