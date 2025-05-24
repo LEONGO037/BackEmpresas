@@ -1,17 +1,20 @@
 // ✅ MODELO - models/empresaModel.js 
-import db from '../db.js';
-
-export const obtenerTodasEmpresasResumen = async () => {
-  const query = `
-    SELECT id_empresa, denominacion_social, url
-    FROM EMPRESAS;
-  `;
-
-  const { rows } = await db.query(query);
-  return rows;
-};
-
 import pool from '../db.js';
+
+export async function getTodasEmpresasResumen() {
+  const query = `
+    SELECT 
+      e.denominacion_social,
+      e.nombre_comercial,
+      te.nombre_tamanio
+    FROM EMPRESAS e
+    JOIN TAMANIOS_EMPRESAS te ON te.id_tamanio = e.id_tamanio
+    ORDER BY e.denominacion_social;
+  `;
+  const { rows } = await pool.query(query);
+  return rows;
+}
+
 
 export async function getEmpresaPorId(id) {
   const query = `
