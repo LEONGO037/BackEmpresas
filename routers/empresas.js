@@ -49,77 +49,100 @@ router.get('/empresas/resumen', obtenerTodasEmpresasResumen);
  *           type: integer
  *     responses:
  *       200:
- *         description: Datos de la empresa encontrados correctamente
+ *         description: Empresa encontrada
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   denominacion_social:
+ *               type: object
+ *               properties:
+ *                 id_empresa:
+ *                   type: integer
+ *                 denominacion_social:
+ *                   type: string
+ *                 nombre_comercial:
+ *                   type: string
+ *                 fecha_fundacion:
+ *                   type: string
+ *                   format: date
+ *                 nit:
+ *                   type: integer
+ *                 vision:
+ *                   type: string
+ *                 mision:
+ *                   type: string
+ *                 descripcion:
+ *                   type: string
+ *                 url:
+ *                   type: string
+ *                 direccion_web:
+ *                   type: string
+ *                 nombre_tipsoc:
+ *                   type: string
+ *                 fecha_inicio_societario:
+ *                   type: string
+ *                   format: date
+ *                 fecha_fin_societario:
+ *                   type: string
+ *                   format: date
+ *                   nullable: true
+ *                 nombre_actividad:
+ *                   type: string
+ *                 descripcion_actividad:
+ *                   type: string
+ *                 nombre_tamanio:
+ *                   type: string
+ *                 items:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       nombre_item:
+ *                         type: string
+ *                       descripcion_item:
+ *                         type: string
+ *                 rubros:
+ *                   type: array
+ *                   items:
  *                     type: string
- *                   nombre_comercial:
+ *                 operaciones_internacionales:
+ *                   type: array
+ *                   items:
  *                     type: string
- *                   fecha_fundacion:
- *                     type: string
- *                     format: date
- *                   nit:
- *                     type: integer
- *                   vision:
- *                     type: string
- *                   mision:
- *                     type: string
- *                   descripcion:
- *                     type: string
- *                   url:
- *                     type: string
- *                   direccion_web:
- *                     type: string
- *                   nombre_tipsoc:
- *                     type: string
- *                   fecha_inicio_societario:
- *                     type: string
- *                     format: date
- *                   fecha_fin_societario:
- *                     type: string
- *                     format: date
- *                     nullable: true
- *                   nombre_actividad:
- *                     type: string
- *                   descripcion_actividad:
- *                     type: string
- *                   nombre_rubro:
- *                     type: string
- *                   pais_operacion:
- *                     type: string
- *                   fecha_inicio_familia:
- *                     type: string
- *                     format: date
- *                   fecha_fin_familia:
- *                     type: string
- *                     format: date
- *                     nullable: true
- *                   descripcion_hito:
- *                     type: string
- *                   fecha_hito:
- *                     type: string
- *                     format: date
- *                     nullable: true
- *                   nombre_item:
- *                     type: string
- *                   descripcion_item:
- *                     type: string
- *                   nombre_tamanio:
- *                     type: string
- *                   nombre_edificio:
- *                     type: string
- *                   nombre_ciudad:
- *                     type: string
- *                   nombre_municipio:
- *                     type: string
- *                   nombre_depto:
- *                     type: string
+ *                 familia:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       fecha_inicio:
+ *                         type: string
+ *                         format: date
+ *                       fecha_fin:
+ *                         type: string
+ *                         format: date
+ *                         nullable: true
+ *                 hitos:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       descripcion:
+ *                         type: string
+ *                       fecha:
+ *                         type: string
+ *                         format: date
+ *                 sedes:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       nombre_edificio:
+ *                         type: string
+ *                       ciudad:
+ *                         type: string
+ *                       municipio:
+ *                         type: string
+ *                       departamento:
+ *                         type: string
  *       400:
  *         description: ID inválido (no numérico)
  *       404:

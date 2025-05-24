@@ -14,20 +14,18 @@ export async function obtenerTodasEmpresasResumen(req, res) {
 }
 export async function obtenerEmpresaPorId(req, res) {
   const { id } = req.params;
-
-  // Validación manual (sin express-validator)
   if (!/^\d+$/.test(id)) {
     return res.status(400).json({ error: 'ID inválido, debe ser numérico' });
   }
 
   try {
     const empresa = await getEmpresaPorId(Number(id));
-    if (!empresa.length) {
+    if (!empresa) {
       return res.status(404).json({ error: 'Empresa no encontrada' });
     }
     res.json(empresa);
   } catch (error) {
-    console.error('Error al obtener empresa:', error.message);
+    console.error('❌ Error al obtener empresa:', error.message);
     res.status(500).json({ error: 'Error del servidor' });
   }
 }
