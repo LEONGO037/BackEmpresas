@@ -14,8 +14,7 @@ export async function getTodasEmpresasResumen() {
   `;
   const { rows } = await pool.query(query);
   return rows;
-}
-export async function getEmpresaPorId(id) {
+}export async function getEmpresaPorId(id) {
   const query = `
     SELECT 
       e.id_empresa,
@@ -65,7 +64,8 @@ export async function getEmpresaPorId(id) {
       COALESCE((
         SELECT json_agg(jsonb_build_object(
           'fecha_inicio', f.fecha_inicio,
-          'fecha_fin', f.fecha_fin
+          'fecha_fin', f.fecha_fin,
+          'apellido_familia', f.apellido_familia
         ))
         FROM FAMILIA f
         WHERE f.id_empresa = e.id_empresa
@@ -80,6 +80,19 @@ export async function getEmpresaPorId(id) {
         FROM HITOS h
         WHERE h.id_empresa = e.id_empresa
       ), '[]'::json) AS hitos,
+
+      -- Premios
+      COALESCE((
+        SELECT json_agg(jsonb_build_object(
+          'entidad_otorgadora', p.entidad_otorgadora,
+          'descripcion', p.descripcion,
+          'anio', pe.anio,
+          'tipo', CASE WHEN p.tipo_premio THEN 'Internacional' ELSE 'Nacional' END
+        ))
+        FROM PREMIOS_EMPRESAS pe
+        JOIN PREMIOS p ON p.id_premio = pe.id_premio
+        WHERE pe.id_empresa = e.id_empresa
+      ), '[]'::json) AS premios,
 
       -- Sedes
       COALESCE((

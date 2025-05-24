@@ -33,11 +33,12 @@ const router = express.Router();
 
 router.get('/empresas/resumen', obtenerTodasEmpresasResumen);
 /**
+/**
  * @swagger
  * /empresa/{id}:
  *   get:
  *     summary: Obtener información detallada de una empresa por su ID
- *     description: Retorna los datos generales de la empresa y todas sus relaciones (tipo societario, actividad, rubros, operaciones internacionales, familia, hitos, ítems, tamaño, sedes y ubicación).
+ *     description: Retorna los datos generales de la empresa y todas sus relaciones (tipo societario, actividad, rubros, operaciones internacionales, familia, hitos, ítems, premios, tamaño, sedes y ubicación).
  *     tags:
  *       - Empresas
  *     parameters:
@@ -120,6 +121,22 @@ router.get('/empresas/resumen', obtenerTodasEmpresasResumen);
  *                         type: string
  *                         format: date
  *                         nullable: true
+ *                       apellido_familia:
+ *                         type: string
+ *                 premios:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       entidad_otorgadora:
+ *                         type: string
+ *                       descripcion:
+ *                         type: string
+ *                       anio:
+ *                         type: integer
+ *                       tipo:
+ *                         type: string
+ *                         enum: [Nacional, Internacional]
  *                 hitos:
  *                   type: array
  *                   items:
@@ -150,6 +167,7 @@ router.get('/empresas/resumen', obtenerTodasEmpresasResumen);
  *       500:
  *         description: Error interno del servidor
  */
+
 
 router.get('/empresa/:id', obtenerEmpresaPorId);
 
