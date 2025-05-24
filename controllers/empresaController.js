@@ -1,5 +1,5 @@
 import {
-  obtenerEmpresaPorId,
+  getEmpresaPorId,
   obtenerTodasEmpresasResumen
 } from '../models/empresaModel.js';
 
@@ -13,18 +13,22 @@ export const getTodasEmpresasResumen = async (req, res) => {
   }
 };
 
-export const getEmpresaDetalle = async (req, res) => {
+export async function obtenerEmpresaPorId(req, res) {
+  const { id } = req.params;
+
+  // Validación manual (sin express-validator)
+  if (!/^\d+$/.test(id)) {
+    return res.status(400).json({ error: 'ID inválido, debe ser numérico' });
+  }
+
   try {
-    const { id } = req.params;
-    const empresa = await obtenerEmpresaPorId(id);
-
-    if (!empresa) {
-      return res.status(404).json({ mensaje: 'Empresa no encontrada' });
+    const empresa = await getEmpresaPorId(Number(id));
+    if (!empresa.length) {
+      return res.status(404).json({ error: 'Empresa no encontrada' });
     }
-
     res.json(empresa);
   } catch (error) {
-    console.error('Error al obtener detalles de la empresa:', error);
-    res.status(500).json({ mensaje: 'Error interno del servidor' });
+    console.error('Error al obtener empresa:', error.message);
+    res.status(500).json({ error: 'Error del servidor' });
   }
-};
+}

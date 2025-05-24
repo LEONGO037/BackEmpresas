@@ -1,5 +1,5 @@
 import express from 'express';
-import {getEmpresaDetalle,getTodasEmpresasResumen} from '../controllers/empresaController.js';
+import {obtenerEmpresaPorId,getTodasEmpresasResumen} from '../controllers/empresaController.js';
 
 const router = express.Router();
 
@@ -181,6 +181,6 @@ router.get('/empresas', getTodasEmpresasResumen);
  *       500:
  *         description: Error interno del servidor
  */
-router.get('/empresa/:id', getEmpresaDetalle);
+router.get('/empresa/:id', obtenerEmpresaPorId);
 
 export default router;
