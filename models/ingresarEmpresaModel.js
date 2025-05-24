@@ -6,12 +6,15 @@ const insertarEmpresa = async (empresaData) => {
       denominacion_social,
       nombre_comercial,
       fecha_fundacion,
-      fecha_cierre,
       nit,
-      eslogan,
+      vision,
+      mision,
       descripcion,
-      url
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      url,
+      direccion_web,
+      id_actividad,
+      id_tamanio
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     RETURNING id_empresa
   `;
 
@@ -19,20 +22,23 @@ const insertarEmpresa = async (empresaData) => {
     empresaData.denominacion_social,
     empresaData.nombre_comercial,
     empresaData.fecha_fundacion,
-    empresaData.fecha_cierre || null,
     empresaData.nit,
-    empresaData.eslogan,
+    empresaData.vision,
+    empresaData.mision,
     empresaData.descripcion,
-    empresaData.url
+    empresaData.url,
+    empresaData.direccion_web,
+    empresaData.id_actividad,
+    empresaData.id_tamanio
   ];
 
   try {
     const { rows } = await pool.query(query, values);
     return rows[0].id_empresa;
   } catch (error) {
-    console.error('Error en insertarEmpresa:', error); // Deja esto
-  console.error('Detalle del error PostgreSQL:', error.message); // Agrega esto
-  throw new Error('Error al crear la empresa');
+    console.error('Error en insertarEmpresa:', error);
+    console.error('Detalle del error PostgreSQL:', error.message);
+    throw new Error('Error al crear la empresa');
   }
 };
 

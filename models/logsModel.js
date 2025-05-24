@@ -3,11 +3,11 @@ import pool from '../db.js';
 const obtenerLogs = async () => {
   const query = `
     SELECT * FROM log_transacciones
-    ORDER BY id_log ASC
+    ORDER BY id ASC;
   `;
 
   try {
-    const { rows } = await pool(query);
+    const { rows } = await pool.query(query);
     return rows;
     }
     catch (error) {

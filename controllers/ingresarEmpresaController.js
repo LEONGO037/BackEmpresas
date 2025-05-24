@@ -1,4 +1,5 @@
 import ingresarEmpresaModel from '../models/ingresarEmpresaModel.js';
+import logsModel from '../models/logsModel.js';
 
 const crearEmpresa = async (req, res) => {
   const requiredFields = [
@@ -6,32 +7,28 @@ const crearEmpresa = async (req, res) => {
     'nombre_comercial',
     'fecha_fundacion',
     'nit',
-    'eslogan',
+    'vision',
+    'mision',
     'descripcion',
-    'url'
+    'url',
+    'direccion_web',
+    'id_actividad',
+    'id_tamanio'
   ];
 
-  // Verificar campos requeridos
   const missingFields = requiredFields.filter(field => !req.body[field]);
-  
+
   if (missingFields.length > 0) {
     return res.status(400).json({
       mensaje: `Faltan campos requeridos: ${missingFields.join(', ')}`
     });
   }
 
-  // Validar formato de fecha si se envía fecha_cierre
-  if (req.body.fecha_cierre && req.body.fecha_cierre !== '') {
-    if (isNaN(Date.parse(req.body.fecha_cierre))) {
-      return res.status(400).json({
-        mensaje: 'Formato de fecha inválido. Use YYYY-MM-DD'
-      });
-    }
-  }
-
   try {
     const idEmpresa = await ingresarEmpresaModel.insertarEmpresa(req.body);
-    
+    const { id_usuario } = req.body;
+    await logsModel.registrarLog({id_usuario, tabla: 'empresas', tipo_log: 'INSERT'});
+
     res.status(201).json({
       mensaje: 'Empresa creada exitosamente',
       id_empresa: idEmpresa
@@ -43,6 +40,8 @@ const crearEmpresa = async (req, res) => {
     });
   }
 };
+
+
 
 export default {
   crearEmpresa,
