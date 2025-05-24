@@ -134,3 +134,85 @@ export async function getTodasEmpresasResumen() {
 
   return rows[0];
 }
+
+
+export async function getEmpresaYFamilia(id) {
+  const query = `
+    SELECT 
+      e.id_empresa,
+      e.denominacion_social,
+      e.nombre_comercial,
+      f.fecha_inicio,
+      f.fecha_fin,
+      f.apellido_familia
+    FROM EMPRESAS e
+    LEFT JOIN FAMILIA f ON f.id_empresa = e.id_empresa
+    WHERE e.id_empresa = $1;
+  `;
+  const { rows } = await pool.query(query, [id]);
+
+  if (!rows.length) return null;
+
+  const empresa = {
+    id_empresa: rows[0].id_empresa,
+    denominacion_social: rows[0].denominacion_social,
+    nombre_comercial: rows[0].nombre_comercial,
+    familia: rows
+      .filter(r => r.fecha_inicio) // si no hay familia, todos son null
+      .map(r => ({
+        fecha_inicio: r.fecha_inicio,
+        fecha_fin: r.fecha_fin,
+        apellido_familia: r.apellido_familia
+      }))
+  };
+
+  if (empresa.familia.length === 0) return null;
+
+  return empresa;
+}
+export async function getEmpresaOperacionesInternacionales(id) {
+  const query = `
+    SELECT 
+      e.id_empresa,
+      e.denominacion_social,
+      e.nombre_comercial,
+      oi.id_operacion,
+      oi.pais,
+      oi.url
+    FROM EMPRESAS e
+    JOIN OPERACIONES_INTERNACIONALES oi ON oi.id_empresa = e.id_empresa
+    WHERE e.id_empresa = $1;
+  `;
+  const { rows } = await pool.query(query, [id]);
+
+  if (!rows.length) return null;
+
+  const empresa = {
+    id_empresa: rows[0].id_empresa,
+    denominacion_social: rows[0].denominacion_social,
+    nombre_comercial: rows[0].nombre_comercial,
+    operaciones_internacionales: rows.map(r => ({
+      id_operacion: r.id_operacion,
+      pais: r.pais,
+      url: r.url
+    }))
+  };
+
+  return empresa;
+}
+export async function getTamanioEmpresa(id) {
+  const query = `
+    SELECT 
+      e.id_empresa,
+      e.denominacion_social,
+      e.nombre_comercial,
+      te.nombre_tamanio
+    FROM EMPRESAS e
+    LEFT JOIN TAMANIOS_EMPRESAS te ON te.id_tamanio = e.id_tamanio
+    WHERE e.id_empresa = $1;
+  `;
+
+  const { rows } = await pool.query(query, [id]);
+  return rows[0] || null;
+}
+
