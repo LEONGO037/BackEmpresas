@@ -7,7 +7,7 @@ const router = express.Router();
  * @swagger
  * /sedes/empresa/{id}:
  *   get:
- *     summary: Obtener las sedes de una empresa
+ *     summary: Obtener la sede de una empresa
  *     tags:
  *       - Sedes
  *     parameters:
@@ -19,7 +19,7 @@ const router = express.Router();
  *         description: ID de la empresa
  *     responses:
  *       200:
- *         description: Detalle de las sedes de la empresa
+ *         description: Detalle de la sede de la empresa
  *         content:
  *           application/json:
  *             schema:
@@ -39,20 +39,13 @@ const router = express.Router();
  *                   type: string
  *                 nombre_depto:
  *                   type: string
- *                 fecha_inicio:
- *                   type: string
- *                   format: date
- *                 fecha_fin:
- *                   type: string
- *                   format: date
- *                   nullable: yes
  *       404:
- *         description: Sedes no encontradas
+ *         description: Sede no encontradas
  *       500:
  *         description: Error interno del servidor
  */
 
-router.get('/empresa/:id', sedesController.obtenerSedesById);
+router.get('/empresa/:id', sedesController.obtenerSedeById);
 
 /**
  * @swagger
@@ -110,14 +103,8 @@ router.get('/munciudeptos', sedesController.obtenerMunCiuDeptos);
  *         latitud:
  *           type: number
  *           format: double
- *         fecha_inicio:
- *           type: string
- *           format: date
- *         fecha_fin:
- *           type: string
- *           format: date
- *         tipo:
- *           type: boolean
+ *         id_usuario:
+ *           type: integer
  * 
  * tags:
  *   - name: Sedes
@@ -127,7 +114,7 @@ router.get('/munciudeptos', sedesController.obtenerMunCiuDeptos);
  *   post:
  *     tags: 
  *       - Sedes
- *     summary: Registra una sede no registrada para una empresa.
+ *     summary: Registra una sede en una empresa.
  *     description: |
  *       Verifica que los campos no estén vacíos.
  *       Verifica que la sede no haya sido registrada previamente.
@@ -141,7 +128,7 @@ router.get('/munciudeptos', sedesController.obtenerMunCiuDeptos);
  *       200:
  *         description: Sede registrada exitosamente.
  *       400:
- *         description: Datos incompletos o formato de fecha inválido.
+ *         description: Datos incompletos o la sede ya ha sido registrada.
  *       500:
  *         description: Error interno del servidor.
  */

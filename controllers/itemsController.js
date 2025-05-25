@@ -1,4 +1,5 @@
 import itemsModel from '../models/itemsModel.js';
+import logsModel from '../models/logsModel.js';
 
 const obtenerItems = async (req, res) => {
     try {
@@ -33,9 +34,9 @@ const obtenerItemsById = async (req, res) => {
 };
 
 const insertarItem = async(req, res) => {
-    const { id_empresa, id_item, fecha_inicio, fecha_fin } = req.body;
+    const { id_empresa, id_item, fecha_inicio, fecha_fin, id_usuario } = req.body;
 
-    if ( !id_empresa || !id_item || !fecha_inicio ) {
+    if ( !id_empresa || !id_item || !fecha_inicio || !id_usuario ) {
         return res.status(400).json({ mensaje: 'Datos incompletos' });
     }
 
@@ -61,9 +62,14 @@ const insertarItem = async(req, res) => {
 
     try {
         const msg = await itemsModel.insertarItem(id_empresa, id_item, fecha_inicio, fecha_fin);
+        await logsModel.registrarLog({
+          id_usuario,
+          tabla: 'empresas_items',
+          tipo_log: 'insert'
+        });
         res.status(200).json({ mensaje: msg });
     } catch (error) {
-        console.error('Error al obtener los items de la empresa:', error);
+        console.error('Error al insertar el item:', error);
         res.status(500).json({ mensaje: 'Error interno del servidor' });
     }
 };
