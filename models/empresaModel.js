@@ -14,7 +14,8 @@ export async function getTodasEmpresasResumen() {
   `;
   const { rows } = await pool.query(query);
   return rows;
-}export async function getEmpresaPorId(id) {
+}
+export async function getEmpresaPorId(id) {
   const query = `
     SELECT 
       e.id_empresa,
@@ -87,7 +88,12 @@ export async function getTodasEmpresasResumen() {
           'entidad_otorgadora', p.entidad_otorgadora,
           'descripcion', p.descripcion,
           'anio', pe.anio,
-          'tipo', CASE WHEN p.tipo_premio THEN 'Internacional' ELSE 'Nacional' END
+          'tipo', CASE 
+          WHEN p.tipo_premio IS TRUE THEN 'Internacional'
+          WHEN p.tipo_premio IS FALSE THEN 'Nacional'
+          ELSE NULL
+        END
+
         ))
         FROM PREMIOS_EMPRESAS pe
         JOIN PREMIOS p ON p.id_premio = pe.id_premio
@@ -121,16 +127,11 @@ export async function getTodasEmpresasResumen() {
     WHERE e.id_empresa = $1;
   `;
 
-  console.log('📤 Ejecutando query para empresa con ID:', id);
-  console.log('🧠 SQL:', query);
+  
 
   const { rows } = await pool.query(query, [id]);
 
-  if (rows.length === 0) {
-    console.log('❌ No se encontró ninguna empresa con ese ID.');
-  } else {
-    console.log('✅ Empresa encontrada:', rows[0]);
-  }
+  
 
   return rows[0];
 }
