@@ -29,7 +29,11 @@ const router = express.Router();
  *                   type: string
  *                 descripcion:
  *                   type: string
- *                 categoria:
+ *                 tipo_item:
+ *                   type: boolean
+ *                 producto_servicio:
+ *                   type: boolean
+ *                 url:
  *                   type: string
  *                 fecha_inicio:
  *                   type: string
@@ -72,8 +76,6 @@ router.get('/empresa/:id', itemsController.obtenerItemsById);
  *                   type: integer
  *                 nombre_item:
  *                   type: string
- *                 categoria:
- *                   type: string
  *       404:
  *         description: Ítems no encontradas
  *       500:
@@ -99,6 +101,8 @@ router.get('/:id', itemsController.obtenerItems);
  *         fecha_fin:
  *           type: string
  *           format: date
+ *         id_usuario:
+ *           type: integer
  * 
  * tags:
  *   - name: Ítems
